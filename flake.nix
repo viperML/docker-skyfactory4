@@ -36,7 +36,7 @@
             inherit server-files;
             docker-image = pkgs.dockerTools.buildLayeredImage {
               name = "viperml/skyfactory-4";
-              tag = version + "-${pkgs.system}";
+              tag = "latest";
               contents = [
                 pkgs.bash
                 pkgs.coreutils
