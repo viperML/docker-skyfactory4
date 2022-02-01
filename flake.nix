@@ -38,7 +38,6 @@
               name = "skyfactory-4";
               tag = version + "-${pkgs.system}";
               contents = [
-                # server-files
                 pkgs.bash
                 pkgs.coreutils
                 pkgs.jdk8
