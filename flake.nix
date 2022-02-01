@@ -35,7 +35,7 @@
           packages = {
             inherit server-files;
             docker-image = pkgs.dockerTools.buildLayeredImage {
-              name = "skyfactory-4";
+              name = "viperml/skyfactory-4";
               tag = version + "-${pkgs.system}";
               contents = [
                 pkgs.bash
