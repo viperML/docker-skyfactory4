@@ -34,7 +34,7 @@
         {
           packages = {
             inherit server-files;
-            docker-image = pkgs.dockerTools.buildImage {
+            docker-image = pkgs.dockerTools.buildLayeredImage {
               name = "skyfactory-4";
               tag = version + "-${pkgs.system}";
               contents = [
@@ -42,10 +42,9 @@
                 pkgs.coreutils
                 pkgs.jdk8
               ];
-              runAsRoot = ''
-                set -eux -o pipefail
-                mkdir -p ${workdir}
-                cp -r ${server-files}/* ${workdir}
+              extraCommands = ''
+                mkdir -p ./${workdir}
+                cp -r ${server-files}/* ./${workdir}
               '';
               config = {
                 Cmd = [ "${entrypoint}/bin/entrypoint" ];
