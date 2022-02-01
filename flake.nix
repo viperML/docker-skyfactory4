@@ -45,12 +45,16 @@
               extraCommands = ''
                 mkdir -p ./${workdir}
                 cp -r ${server-files}/* ./${workdir}
+                ${pkgs.gnused}/bin/sed 's/\. \.\/settings\.sh//g' ./${workdir}/ServerStart.sh
               '';
               config = {
                 Cmd = [ "${entrypoint}/bin/entrypoint" ];
                 WorkingDir = workdir;
                 Env = [
                   "PATH=${pkgs.jdk8}/bin:${pkgs.coreutils}/bin:${pkgs.bash}/bin"
+                  "MIN_RAM=1024M"
+                  "MAX_RAM=4096M"
+                  "JAVA_PARAMETERS=-XX:+UseG1GC -Dsun.rmi.dgc.server.gcInterval=2147483646 -XX:+UnlockExperimentalVMOptions -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=32M -Dfml.readTimeout=180"
                 ];
               };
             };
